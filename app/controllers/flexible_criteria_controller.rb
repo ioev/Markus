@@ -25,31 +25,31 @@ class FlexibleCriteriaController < ApplicationController
 
   def new
     @assignment = Assignment.find(params[:assignment_id])
-    if !request.post?
-      return
+    @criterion = FlexibleCriterion.new
+  end
+
+  def create
+    @assignment = Assignment.find(params[:assignment_id])
+    @criteria = @assignment.flexible_criteria
+    if @criteria.length > 0
+      new_position = @criteria.last.position + 1
     else
-      @criteria = @assignment.flexible_criteria
-      if @criteria.length > 0
-        new_position = @criteria.last.position + 1
-      else
-        new_position = 1
-      end
-      @criterion = FlexibleCriterion.new
-      @criterion.assignment = @assignment
-      @criterion.max = FlexibleCriterion::DEFAULT_MAX
-      @criterion.position = new_position
-      if !@criterion.update_attributes(params[:flexible_criterion])
-        @errors = @criterion.errors
-        render :add_criterion_error
-        return
-      end
-      @criteria.reload
-      render :create_and_edit
+      new_position = 1
     end
+    @criterion = FlexibleCriterion.new
+    @criterion.assignment = @assignment
+    @criterion.max = FlexibleCriterion::DEFAULT_MAX
+    @criterion.position = new_position
+    if !@criterion.update_attributes(params[:flexible_criterion])
+      @errors = @criterion.errors
+      render :add_criterion_error
+      return
+    end
+    @criteria.reload
+    render :create_and_edit
   end
 
   def destroy
-    return unless request.delete?
     @criterion = FlexibleCriterion.find(params[:id])
     @assignment = @criterion.assignment
     @criteria = @assignment.flexible_criteria
@@ -102,9 +102,7 @@ class FlexibleCriteriaController < ApplicationController
     @assignment = Assignment.find(params[:assignment_id])
     @criteria = @assignment.flexible_criteria
     params[:flexible_criteria_pane_list].each_with_index do |id, position|
-      if id != ""
-        FlexibleCriterion.update(id, :position => position + 1)
-      end
+      FlexibleCriterion.update(id, :position => position + 1) unless id.empty?
     end
   end
 
