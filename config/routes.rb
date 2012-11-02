@@ -64,8 +64,7 @@ Markus::Application.routes.draw do
 
       collection do
         post 'upload'
-        get 'update_positions'
-        get 'move_criterion'
+        post 'update_positions'
         get 'download'
       end
     end

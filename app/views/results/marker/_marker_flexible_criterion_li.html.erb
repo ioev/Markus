@@ -5,7 +5,7 @@
 <li class="<%= cycle('mark_criterion_holder_A', 'mark_criterion_holder_B') %>" id="<%= "flexible_criterion_#{mark_criterion.id}" %>">
 <!--Mark update info -->
 <div id="mark_verify_result_<%=mark.id%>" class="error" style="display:none;" ><%= I18n.t("marker.marks.invalid_mark") %></div>
-<div class="criterion_title" id="<%= "mark_criterion_title_#{mark_criterion.id}"%>" onclick="<%="focus_mark_criterion(#{mark_criterion.id})"%>">
+<div class="mark_criterion_title" id="<%= "mark_criterion_title_#{mark_criterion.id}"%>" onclick="<%="focus_mark_criterion(#{mark_criterion.id})"%>">
 <div id="<%="mark_criterion_title_#{mark_criterion.id}_expand"%>"
 class="float_left flexible_criterion_expand expanded" >- &nbsp;
 </div>
@@ -32,8 +32,8 @@ class="mark_criterion_title_div_level float_left">
 </div>
 <div class="clear"></div>
   <div id="<%="mark_criterion_inputs_#{mark_criterion.id}"%>" class="mark_criterion_level_container" >
-    <div class="float_left" >
-      <%=mark_criterion.description %>
+    <div class="float_left">
+      <%= mark_criterion.description.html_safe %>
     </div>
   </div>
 <div class="clear"></div>

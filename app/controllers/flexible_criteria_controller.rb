@@ -57,7 +57,6 @@ class FlexibleCriteriaController < ApplicationController
     # Will be possible when Mark gets its association with FlexibleCriterion.
     @criterion.destroy
     flash.now[:success] = I18n.t('criterion_deleted_success')
-    redirect_to :action => 'index', :id => @assignment
   end
 
   def download
@@ -109,10 +108,7 @@ class FlexibleCriteriaController < ApplicationController
   #This method handles the arrows
   def move_criterion
     position = params[:position].to_i
-    unless request.post?
-      render :nothing => true
-      return
-    end
+
     if params[:direction] == 'up'
       offset = -1
     elsif  params[:direction] == 'down'
@@ -121,6 +117,7 @@ class FlexibleCriteriaController < ApplicationController
       render :nothing => true
       return
     end
+
     @assignment = Assignment.find(params[:assignment_id])
     @criteria = @assignment.flexible_criteria
     criterion = @criteria.find(params[:id])
@@ -130,9 +127,13 @@ class FlexibleCriteriaController < ApplicationController
       render :nothing => true
       return
     end
-    FlexibleCriterion.update(criterion.id,
-                             :position => other_criterion.position)
-    FlexibleCriterion.update(other_criterion.id, :position => position)
+
+    position = criterion.position
+    criterion.position = index + offset
+    other_criterion.position = index
+    if !(criterion.save and other_criterion.save)
+      flash[:error] = I18n.t("rubrics.move_criterion.error")
+    end
     @criteria.reload
   end
 

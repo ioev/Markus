@@ -371,52 +371,52 @@ ul#annotation_summary_list {
     border: 4px solid #B7D3EC;
 }
 
-  .mark_criterion_title {
+  .mark_criterion_title, .mark_criterion_title::selection {
     cursor: pointer;
   }
 
     .mark_criterion_title_div_level {
-        font-size: 12px;
+      font-size: 12px;
     }
   .mark_criterion_holder_selected, .mark_level {
     background: #CCCCFF;
   }
 
 .mark_criterion_level {
-    color:black;
-    font-size:10px;
-    background:none;
+  color: black;
+  font-size: 10px;
+  background: none;
 }
 .mark_reset {
-	color:black;
-    font-size:10px;
-    background:none;
-	float:right;
+	color: black;
+  font-size: 10px;
+  background: none;
+	float: right;
 	cursor: pointer;
 }
 .mark_criterion_level_selected {
-    font-size:10px;
-    background-color:#FFFFCC;
+  font-size:10px;
+  background-color:#FFFFCC;
 }
 
 .mark_criterion_level_container {
-    margin-left:20px;
-    margin-top: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 .mark_criterion_level_container table {
-    border-collapse:collapse;
-    border:1px solid #DADADA;
-    padding: 4px;
-    background: #fff;
+  border-collapse:collapse;
+  border:1px solid #DADADA;
+  padding: 4px;
+  background: #fff;
 }
 
 .mark_criterion_level_container td {
-    border-top:1px solid #DADADA;
-    border-bottom:1px solid #DADADA;
-    padding: 4px;
-    font-size: 1.1em;
-    background: #fff;
+  border-top:1px solid #DADADA;
+  border-bottom:1px solid #DADADA;
+  padding: 4px;
+  font-size: 1.1em;
+  background: #fff;
 }
 .mark_grade_input{
 	font-size:1.0em;
@@ -426,17 +426,17 @@ ul#annotation_summary_list {
 }
 
   .editing {
-        background: #f9ffb1;
-        border: 1px dashed #d6de78;
+    background: #f9ffb1;
+    border: 1px dashed #d6de78;
   }
 
 
 #selected_criterion_name {
-        font-weight: bold;
+  font-weight: bold;
 }
 
 .clear {
-        clear: both;
+  clear: both;
 }
 /*
 .error {
@@ -461,7 +461,7 @@ ul#annotation_summary_list {
   }
 
   .extra_mark_delete {
-        float: right;
+    float: right;
   }
 
   .extra_marks_pane {
@@ -525,4 +525,6 @@ ul#annotation_summary_list {
   padding: 10px;
 }
 
-
+.flexible_criterion_expand {
+  width: 15px;
+}
