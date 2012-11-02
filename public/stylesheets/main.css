@@ -113,6 +113,7 @@ input[type=button], input[type=submit], input[type=reset], button, .button {
   text-shadow: 1px 1px 0px #ffffff;
   border-color: #a7b8be;
   cursor: default;
+  margin: 5px;
 }
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, button:hover, .button:hover {
   background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
