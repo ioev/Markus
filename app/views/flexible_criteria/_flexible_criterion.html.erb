@@ -18,14 +18,12 @@
     <%= link_to image_tag("icons/bullet_arrow_up.png",
                   :alt =>  t('rubric_criteria.move_up')),
           move_criterion_assignment_flexible_criterium_path(@assignment, criterion,
-            :position => criterion.position,
             :direction => 'up'),
           :remote => true %>
     <% end %> <br /> <% if  location != :last and location != :single %>
     <%= link_to image_tag("icons/bullet_arrow_down.png",
                   :alt =>  t('rubric_criteria.move_down')),
           move_criterion_assignment_flexible_criterium_path(@assignment, criterion,
-            :position => criterion.position,
             :direction => 'down'),
           :remote => true %>
     <% end %>

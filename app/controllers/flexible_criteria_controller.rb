@@ -101,13 +101,14 @@ class FlexibleCriteriaController < ApplicationController
     @assignment = Assignment.find(params[:assignment_id])
     @criteria = @assignment.flexible_criteria
     params[:flexible_criteria_pane_list].each_with_index do |id, position|
-      FlexibleCriterion.update(id, :position => position + 1) unless id.empty?
+      FlexibleCriterion.update(id, :position => position + 1) unless id == ""
     end
   end
 
-  #This method handles the arrows
+  # action to handle moving items in the controller list
+  # TODO: clean this up and put it into a model
+  #
   def move_criterion
-    position = params[:position].to_i
 
     if params[:direction] == 'up'
       offset = -1
@@ -118,23 +119,24 @@ class FlexibleCriteriaController < ApplicationController
       return
     end
 
+    # retrieve the position of the element and it's offset
     @assignment = Assignment.find(params[:assignment_id])
     @criteria = @assignment.flexible_criteria
     criterion = @criteria.find(params[:id])
     index = @criteria.index(criterion)
-    other_criterion = @criteria[index + offset]
+    other_criterion = @criteria[index + offset] if index + offset >= 0
     if other_criterion.nil?
       render :nothing => true
       return
     end
 
-    position = criterion.position
-    criterion.position = index + offset
-    other_criterion.position = index
+    # swap the position of the elements
+    criterion.position = index + offset + 1   # off by 1 from array index
+    other_criterion.position = index + 1
     if !(criterion.save and other_criterion.save)
       flash[:error] = I18n.t("rubrics.move_criterion.error")
     end
-    @criteria.reload
+    @criteria.reload    # reload the list on the client
   end
 
 end
